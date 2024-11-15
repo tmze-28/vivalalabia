@@ -3,7 +3,8 @@ import {Sparkles, Cloud, Sky, Environment } from "@react-three/drei";
 import React, { Suspense, useRef, useState } from 'react';
 import { useThree } from "@react-three/fiber";
 import { gsap } from 'gsap';
-import Shell from './Shell';
+// import Shell from './Shell';
+import OtherShell from "./otherShell";
 import WaterSurface from './WaterSurface';
 import Ring from './Ring';
 
@@ -39,7 +40,7 @@ const ModelView = () => {
 
     if (!isAnimationStarted) {
       gsap.killTweensOf(shellsGroupRef.current.rotation);
-      gsap.to(shellsGroupRef.current.rotation, { x: 0, y: 0, z: 0, duration: 0, transformOrigin:"50% 50% -100" });
+      gsap.to(shellsGroupRef.current.rotation, { x: 0, y: 0, z: 0, duration: 0  });
 
       gsap.to([shell4Ref.current.position, shell5Ref.current.position, shell6Ref.current.position], {
         y: "-=20",
@@ -48,50 +49,47 @@ const ModelView = () => {
       });
 
       gsap.to([shell1Ref.current.position], {
-        z: -13,
+        z: -3,
         x: 0,
-        y: '-=4',
+        y: 0,
         duration: 8,
         ease: 'back.out(1.7)' ,
       });
 
       gsap.to([shell2Ref.current.position], {
-        z: -15,
-        x: -10,
-        y: '-=5',
+        z: -4,
+        x: -4,
+        y: -0.6,
         duration: 10,
         ease: 'back.out(1.7)' ,
       });
 
       gsap.to([shell3Ref.current.position], {
-        z: -15,
-        x: 10,
-        y: '-=5', 
+        z: -4,
+        x: 3,
+        y: -0.6, 
         duration: 8,
         ease: 'back.out(1.7)' ,
       });
 
       gsap.to([shell1Ref.current.rotation], {
-        x: Math.PI / 2, 
-        
-        y: Math.PI,
+       
+       y: -Math.PI / 3,
         
         duration: 8,
         ease: 'power2.out', 
       });
 
       gsap.to([shell2Ref.current.rotation], {
-        x: Math.PI / 2, 
-        y: Math.PI,
-        z: Math.PI,
+       
+        y: -Math.PI ,
+       
         duration: 8,
         ease: 'power2.out', 
       });
 
       gsap.to([shell3Ref.current.rotation], {
-        x: Math.PI / 2, 
-        y: Math.PI,
-        z: Math.PI,
+        y: Math.PI / 4,
         duration: 8,
         ease: 'power2.out', 
       });
@@ -124,7 +122,7 @@ const ModelView = () => {
     console.log("Ring nach oben Button gedrückt");
 
     gsap.to(ringRef.current.position, {
-      y: 50,
+      y: 48,
       duration: 8,
       ease: 'power2.out',
     });
@@ -163,15 +161,14 @@ const ModelView = () => {
           <group ref={shellsGroupRef} >
             <group>
             <Ring ref={ringRef} />
-            <Shell
-              refShell1={shell1Ref}
+         
+            <OtherShell refShell1={shell1Ref}
               refShell2={shell2Ref}
               refShell3={shell3Ref}
               refShell4={shell4Ref}
               refShell5={shell5Ref}
               refShell6={shell6Ref}
-              shellsGroupRef={shellsGroupRef}
-            />
+              shellsGroupRef={shellsGroupRef}/>
             </group>
           </group>
           <Cloud position={[-15, 15, 20]} speed={0.2} opacity={0.1} color="#ED8A7C" volume={20} />

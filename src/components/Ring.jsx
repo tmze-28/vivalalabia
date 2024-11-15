@@ -11,7 +11,7 @@ const Ring = React.forwardRef((props, ref) => {
   const combinedRef = ref || ringRef;
 
   return (
-    <group {...props} dispose={null} position={[1, 5, -5]} scale={[2, 2, 2]} rotation={[0, 1, 1]} ref={combinedRef}>
+    <group {...props} dispose={null} position={[0, 5, 0]} scale={[2, 2, 2]} rotation={[0, 1, 1]} ref={combinedRef}>
       <group position={[-3.456, 0.116, 0.361]} rotation={[-Math.PI / 2, 0, 0]}>
         <mesh
           castShadow
