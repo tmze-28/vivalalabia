@@ -20,6 +20,7 @@ body {
 
 canvas {
   touch-action: none;
+  
 }
 
 .scrim-max-width {
@@ -122,3 +123,6 @@ canvas {
     @apply opacity-0 translate-y-[100px]
   }
 }
+
+
+

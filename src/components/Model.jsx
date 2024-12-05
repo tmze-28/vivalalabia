@@ -14,12 +14,12 @@ const Model = () => {
             <div className="screen-max-width">
                 
 
-                <div className="flex flex-col items-center mt-5">
+            
                     {/* Setze die Höhe hier auf 100vh, damit das Canvas den gesamten Bildschirm einnimmt */}
                     <div className="w-full h-[100vh] overflow-hidden relative">
                         <ModelView />
                     </div>
-                </div>
+                
             </div>
         </section>
     );
