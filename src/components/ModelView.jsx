@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState} from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { useEffect } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Sky, Environment, Sparkles, Cloud } from "@react-three/drei";
@@ -10,25 +10,17 @@ import { gsap } from "gsap";
 import PurpleLight from "./PurpleLight";
 // import TitleText from "./TitleText";
 
-
-
-
-
-
-import OtherShell from "./otherShell";
+import OtherShell from "./OtherShell";
 import WaterSurface from "./WaterSurface";
 import Ring from "./Ring";
 import Marquee from "./Marquee";
 
-
 const ModelView = () => {
- 
   // Animation State
   const [buttonText, setButtonText] = useState("Start your animation");
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const [showPurpleLight, setShowPurpleLight] = useState(true); // Zustand für die Sichtbarkeit von PurpleLight
   const [showDirectionalLights, setShowDirectionalLights] = useState(false);
-
 
   // Refs for objects
   const shell1Ref = useRef();
@@ -56,45 +48,42 @@ const ModelView = () => {
       setEnvironmentPreset("warehouse");
       setAmbientColor("#FFD27F"); // Warehouse Farbänderung
       setAmbientLightIntensity(0);
-      setSunPosition([100, 100, 50])
+      setSunPosition([100, 100, 50]);
     }
   };
-  
+
   useEffect(() => {
     // Hier kannst du Debug-Ausgaben machen oder mit gsap Animationen durchführen
-    console.log('Sun Position updated:', sunPosition);
-  }, [sunPosition]); 
+    console.log("Sun Position updated:", sunPosition);
+  }, [sunPosition]);
 
-//Wasserfarbe ändern
-const [waterColor, setWaterColor] = useState(0x201C3D); // Startfarbe #201C3D
+  //Wasserfarbe ändern
+  const [waterColor, setWaterColor] = useState(0x201c3d); // Startfarbe #201C3D
 
-const [isWaterColorAnimated, setIsWaterColorAnimated] = useState(false); // Zustand für die Animation der Wasserfarbe
+  const [isWaterColorAnimated, setIsWaterColorAnimated] = useState(false); // Zustand für die Animation der Wasserfarbe
 
-const handleChangeColor = () => {
-  // Wenn die Wasserfarbe bereits animiert wurde, nichts tun
-  if (isWaterColorAnimated) return;
+  const handleChangeColor = () => {
+    // Wenn die Wasserfarbe bereits animiert wurde, nichts tun
+    if (isWaterColorAnimated) return;
 
-  // Bestimme die Zielfarbe
-  const targetColor = waterColor === 0x201C3D ? 0x99c0e3 : 0x99c0e3;
+    // Bestimme die Zielfarbe
+    const targetColor = waterColor === 0x201c3d ? 0x99c0e3 : 0x99c0e3;
 
-
-  // Verwende gsap, um die Farbänderung zu animieren
-  gsap.to({}, {
-    duration: 10,
-    ease: 'power2.out',
-    onUpdate: () => {
-      setWaterColor(targetColor); // Setze die Ziel-Farbe direkt
-    },
-    onComplete: () => {
-      setIsWaterColorAnimated(true); // Setze den Zustand, dass die Animation abgeschlossen ist
-    }
-  });
-};
-
-
-
-
-
+    // Verwende gsap, um die Farbänderung zu animieren
+    gsap.to(
+      {},
+      {
+        duration: 10,
+        ease: "power2.out",
+        onUpdate: () => {
+          setWaterColor(targetColor); // Setze die Ziel-Farbe direkt
+        },
+        onComplete: () => {
+          setIsWaterColorAnimated(true); // Setze den Zustand, dass die Animation abgeschlossen ist
+        },
+      }
+    );
+  };
 
   const handleButtonClick = () => {
     console.log("Button clicked");
@@ -103,8 +92,11 @@ const handleChangeColor = () => {
     toggleEnvironment();
     handleChangeColor();
 
-    gsap.to(PurpleLight, { opacity: 0, duration: 1, onComplete: () => setShowPurpleLight(false) });
-
+    gsap.to(PurpleLight, {
+      opacity: 0,
+      duration: 1,
+      onComplete: () => setShowPurpleLight(false),
+    });
 
     // Fade out Marquee
     gsap.to(marqueeRef.current, {
@@ -117,22 +109,33 @@ const handleChangeColor = () => {
     });
 
     if (!isAnimationStarted) {
-
       gsap.killTweensOf(shellsGroupRef.current.rotation);
-      gsap.to(shellsGroupRef.current.rotation, { x: 0, y: 0, z: 0, duration: 0  });
-
-      gsap.to([shell4Ref.current.position, shell5Ref.current.position, shell6Ref.current.position], {
-        y: "-=20",
-        duration: 8,
-        ease: 'back.out(1.7)' ,
+      gsap.to(shellsGroupRef.current.rotation, {
+        x: 0,
+        y: 0,
+        z: 0,
+        duration: 0,
       });
+
+      gsap.to(
+        [
+          shell4Ref.current.position,
+          shell5Ref.current.position,
+          shell6Ref.current.position,
+        ],
+        {
+          y: "-=20",
+          duration: 8,
+          ease: "back.out(1.7)",
+        }
+      );
 
       gsap.to([shell1Ref.current.position], {
         z: -3,
         x: 0,
         y: 0,
         duration: 8,
-        ease: 'back.out(1.7)' ,
+        ease: "back.out(1.7)",
       });
 
       gsap.to([shell2Ref.current.position], {
@@ -140,46 +143,43 @@ const handleChangeColor = () => {
         x: -4,
         y: -0.6,
         duration: 10,
-        ease: 'back.out(1.7)' ,
+        ease: "back.out(1.7)",
       });
 
       gsap.to([shell3Ref.current.position], {
         z: -4,
         x: 3,
-        y: -0.6, 
+        y: -0.6,
         duration: 8,
-        ease: 'back.out(1.7)' ,
+        ease: "back.out(1.7)",
       });
 
       gsap.to([shell1Ref.current.rotation], {
-       
-       y: -Math.PI / 3,
-        
+        y: -Math.PI / 3,
+
         duration: 8,
-        ease: 'power2.out', 
+        ease: "power2.out",
       });
 
       gsap.to([shell2Ref.current.rotation], {
-       
-        y: -Math.PI ,
-       
+        y: -Math.PI,
+
         duration: 8,
-        ease: 'power2.out', 
+        ease: "power2.out",
       });
 
       gsap.to([shell3Ref.current.rotation], {
         y: Math.PI / 4,
         duration: 8,
-        ease: 'power2.out', 
+        ease: "power2.out",
       });
 
       gsap.to([ringRef.current.position], {
         y: 10,
         z: 0,
         duration: 8,
-        ease: 'power2.out', 
+        ease: "power2.out",
       });
-
 
       // Add animation logic for shells and ring
       gsap.to([ringRef.current.rotation], {
@@ -227,8 +227,8 @@ const handleChangeColor = () => {
   return (
     <>
       <Canvas camera={{ position: [0, 10, 40], fov: 40 }}>
-      {/* <OrbitControls/> */}
-    
+        {/* <OrbitControls/> */}
+
         <Sky
           scale={1000}
           sunPosition={sunPosition}
@@ -238,25 +238,32 @@ const handleChangeColor = () => {
           mieDirectionalG={0.8}
         />
 
-        <ambientLight intensity={ambientLightIntensity} color={ambientColor} /> 
-{/* Directional Lights */}
+        <ambientLight intensity={ambientLightIntensity} color={ambientColor} />
+        {/* Directional Lights */}
 
-<spotLight position={[0, 11, 5]} color="#DFA30C" intensity={5} />
-<directionalLight position={[0, 3, 10]} color="#DFA30C" intensity={0.5} />
+        <spotLight position={[0, 11, 5]} color="#DFA30C" intensity={5} />
+        <directionalLight
+          position={[0, 3, 10]}
+          color="#DFA30C"
+          intensity={0.5}
+        />
 
-{showDirectionalLights && (
-    <>
-      <directionalLight position={[5, 5, 5]} intensity={1.5} />
-      <directionalLight position={[0, 10, 0]} color="#FFFFFF" intensity={0.1} />
-    </>
-  )}
+        {showDirectionalLights && (
+          <>
+            <directionalLight position={[5, 5, 5]} intensity={1.5} />
+            <directionalLight
+              position={[0, 10, 0]}
+              color="#FFFFFF"
+              intensity={0.1}
+            />
+          </>
+        )}
 
         <Environment preset={environmentPreset} background />
 
         <CameraControls />
         <Suspense fallback={null}>
-        
-        {/* <Effects/> */}
+          {/* <Effects/> */}
           <group ref={shellsGroupRef}>
             <Ring ref={ringRef} />
             <OtherShell
@@ -318,21 +325,24 @@ const handleChangeColor = () => {
             opacity={0.2}
             color="#ED8A7C"
           />
- 
 
-{/* <TitleText/> */}
+          {/* <TitleText/> */}
           <Sparkles count={100} scale={30} size={30} speed={0.4} />
-          <WaterSurface waterColor={0xD6A599} />
-         
-
+          <WaterSurface waterColor={0xd6a599} />
         </Suspense>
-       {/* Rendere PurpleLight nur, wenn showPurpleLight true ist */}
-       {showPurpleLight && <PurpleLight />}
+        {/* Rendere PurpleLight nur, wenn showPurpleLight true ist */}
+        {showPurpleLight && <PurpleLight />}
         {/* <PurpleOverlay /> */}
-        
       </Canvas>
 
-      <div style={{ position: "absolute", bottom: "30%", left: "50%", transform: "translateX(-50%)" }}>
+      <div
+        style={{
+          position: "absolute",
+          bottom: "30%",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
         <button
           style={{
             padding: "10px 20px",
@@ -358,7 +368,16 @@ const handleChangeColor = () => {
           opacity: 0.5,
         }}
       >
-        <h1 style={{ fontSize: "27rem", color: "white", fontFamily: "Times", opacity: 0.5 }}>ONERING</h1>
+        <h1
+          style={{
+            fontSize: "27rem",
+            color: "white",
+            fontFamily: "Times",
+            opacity: 0.5,
+          }}
+        >
+          ONERING
+        </h1>
         <Marquee ref={marqueeRef} />
       </div>
     </>
